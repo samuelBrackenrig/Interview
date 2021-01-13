@@ -35,6 +35,7 @@ public class Test extends ApplicationFrame {
     private boolean returning = false;
     private boolean offline = false;
     private boolean waiting = false;
+    private boolean paused = false;
     private Timer timer;
     private Calendar startDate;
     private Calendar datasetTime = Calendar.getInstance();
@@ -84,7 +85,6 @@ public class Test extends ApplicationFrame {
             Date timeToCheck = formatter.parse(priceData.get(0).get(0));
             Calendar pauseResume = Calendar.getInstance();
             Calendar offlineTime = Calendar.getInstance();
-            boolean paused = false;
             double currentPrice;
             float[] newData = new float[1];
             PopupFactory pf = PopupFactory.getSharedInstance();
@@ -199,14 +199,16 @@ public class Test extends ApplicationFrame {
         @Override
         public Paint getItemPaint(int row, int col) {
             System.out.println(waiting);
-            if(!offline){
-//                return super.getItemPaint(row, col);
-                return new Color(0, 255, 0);
-            }else if(waiting){
-                return new Color(255, 0, 0);
+            if(waiting || paused){
+                return super.getItemPaint(row, col);
             }else{
-                return new Color(0, 0, 0);
+                if(!offline){
+                    return new Color(0, 255, 0);
+                }else{
+                    return new Color(0, 0, 0);
+                }
             }
+
 
         }
     }
