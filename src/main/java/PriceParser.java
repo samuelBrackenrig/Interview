@@ -45,11 +45,4 @@ public class PriceParser {
         }
         return trimmedRecords;
     }
-
-    public static void main(String[] args) {
-        PriceParser p = new PriceParser();
-        System.out.println(p.parse().toString());
-    }
-
-
 }
