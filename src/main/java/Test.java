@@ -198,7 +198,6 @@ public class Test extends ApplicationFrame {
 
         @Override
         public Paint getItemPaint(int row, int col) {
-            System.out.println(waiting);
             if(waiting || paused){
                 return super.getItemPaint(row, col);
             }else{
@@ -208,8 +207,6 @@ public class Test extends ApplicationFrame {
                     return new Color(0, 0, 0);
                 }
             }
-
-
         }
     }
 
