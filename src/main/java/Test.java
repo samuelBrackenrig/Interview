@@ -27,13 +27,14 @@ public class Test extends ApplicationFrame {
     private static final String TITLE = "Longwall Interface";
     private static final String START = "Start";
     private static final String STOP = "Stop";
-    private static final int FAST = 1; 
+    private static final int FAST = 1;
     private static final int REALTIME = 1000;
     private static final Random random = new Random();
     private static final double threshold = 35.64;
     private double gateStart = ThreadLocalRandom.current().nextInt(0, 101);
     private boolean returning = false;
     private boolean offline = false;
+    private boolean waiting = false;
     private Timer timer;
     private Calendar startDate;
     private Calendar datasetTime = Calendar.getInstance();
@@ -84,7 +85,6 @@ public class Test extends ApplicationFrame {
             Calendar pauseResume = Calendar.getInstance();
             Calendar offlineTime = Calendar.getInstance();
             boolean paused = false;
-            boolean waiting = false;
             double currentPrice;
             float[] newData = new float[1];
             PopupFactory pf = PopupFactory.getSharedInstance();
@@ -97,7 +97,6 @@ public class Test extends ApplicationFrame {
                 if(offline){
                     if(offlineTime.getTime().compareTo(datasetTime.getTime()) == 0){
                         offline = false;
-                        System.out.println("Im no longer offline");
                         offlinePopup.hide();
                     }
                 }
@@ -199,8 +198,12 @@ public class Test extends ApplicationFrame {
 
         @Override
         public Paint getItemPaint(int row, int col) {
+            System.out.println(waiting);
             if(!offline){
-                return super.getItemPaint(row, col);
+//                return super.getItemPaint(row, col);
+                return new Color(0, 255, 0);
+            }else if(waiting){
+                return new Color(255, 0, 0);
             }else{
                 return new Color(0, 0, 0);
             }
